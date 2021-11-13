@@ -1,5 +1,6 @@
 package com.study.db;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,18 +18,34 @@ public class TestData {
     public static final String UPDATE_QUERY = "UPDATE USER SET NAME = 'Jonathan' WHERE MAIL = 'john@mail.com'";
     public static final String INSERT_QUERY = "INSERT INTO USER VALUES (3, 'Mark', 'mark@mail.com')";
     public static final String DELETE_QUERY = "DELETE FROM USER WHERE MAIL = 'john@mail.com'";
-    public static final Map<String, List<String>> TABLE_WITH_ALL_FIELDS_AND_ONE_ROW =
-            Map.of(ID_LABEL, List.of(JACK_TEST_ENTITY.id()),
-                    NAME_LABEL, List.of(JACK_TEST_ENTITY.name()),
-                    MAIL_LABEL, List.of(JACK_TEST_ENTITY.mail()));
-    public static final Map<String, List<String>> TABLE_WITH_ALL_FIELDS_AND_TWO_ROWS =
-            Map.of(ID_LABEL, List.of(JOHN_TEST_ENTITY.id(), JACK_TEST_ENTITY.id()),
-                    NAME_LABEL, List.of(JOHN_TEST_ENTITY.name(), JACK_TEST_ENTITY.name()),
-                    MAIL_LABEL, List.of(JOHN_TEST_ENTITY.mail(), JACK_TEST_ENTITY.mail()));
-    public static final Map<String, List<String>> TABLE_WITH_ALL_FIELDS_AND_THREE_ROWS =
-            Map.of(ID_LABEL, List.of(JOHN_TEST_ENTITY.id(), JACK_TEST_ENTITY.id(), MARK_TEST_ENTITY.id()),
-                    NAME_LABEL, List.of(JOHN_TEST_ENTITY.name(), JACK_TEST_ENTITY.name(), MARK_TEST_ENTITY.name()),
-                    MAIL_LABEL, List.of(JOHN_TEST_ENTITY.mail(), JACK_TEST_ENTITY.mail(), MARK_TEST_ENTITY.mail()));
+    public static final Map<String, List<String>> TABLE_WITHOUT_ROWS = new LinkedHashMap<>() {
+        {
+            put(ID_LABEL, List.of());
+            put(NAME_LABEL, List.of());
+            put(MAIL_LABEL, List.of());
+        }
+    };
+    public static final Map<String, List<String>> TABLE_WITH_ALL_FIELDS_AND_ONE_ROW = new LinkedHashMap<>() {
+        {
+            put(ID_LABEL, List.of(JACK_TEST_ENTITY.id()));
+            put(NAME_LABEL, List.of(JACK_TEST_ENTITY.name()));
+            put(MAIL_LABEL, List.of(JACK_TEST_ENTITY.mail()));
+        }
+    };
+    public static final Map<String, List<String>> TABLE_WITH_ALL_FIELDS_AND_TWO_ROWS = new LinkedHashMap<>() {
+        {
+            put(ID_LABEL, List.of(JOHN_TEST_ENTITY.id(), JACK_TEST_ENTITY.id()));
+            put(NAME_LABEL, List.of(JOHN_TEST_ENTITY.name(), JACK_TEST_ENTITY.name()));
+            put(MAIL_LABEL, List.of(JOHN_TEST_ENTITY.mail(), JACK_TEST_ENTITY.mail()));
+        }
+    };
+    public static final Map<String, List<String>> TABLE_WITH_ALL_FIELDS_AND_THREE_ROWS = new LinkedHashMap<>() {
+        {
+            put(ID_LABEL, List.of(JOHN_TEST_ENTITY.id(), JACK_TEST_ENTITY.id(), MARK_TEST_ENTITY.id()));
+            put(NAME_LABEL, List.of(JOHN_TEST_ENTITY.name(), JACK_TEST_ENTITY.name(), MARK_TEST_ENTITY.name()));
+            put(MAIL_LABEL, List.of(JOHN_TEST_ENTITY.mail(), JACK_TEST_ENTITY.mail(), MARK_TEST_ENTITY.mail()));
+        }
+    };
     public static final Map<String, List<String>> EXPECTED_TABLE_ID_COLUMN_ONLY =
             Map.of(ID_LABEL, List.of(JOHN_TEST_ENTITY.id(), JACK_TEST_ENTITY.id()));
 }
