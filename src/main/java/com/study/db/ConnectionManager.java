@@ -1,4 +1,4 @@
-package com.study;
+package com.study.db;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
