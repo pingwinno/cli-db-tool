@@ -31,16 +31,22 @@ public class QueryProcessor {
         return queryResult;
     }
 
-    public String update(String query) {
-        return null;
+    public int update(String query) throws SQLException {
+        return executeUpdate(query);
     }
 
-    public String insert(String query) {
-        return null;
+    public int insert(String query) throws SQLException {
+        return executeUpdate(query);
     }
 
-    public String delete(String query) {
-        return null;
+    public int delete(String query) throws SQLException {
+        return executeUpdate(query);
+    }
+
+    private int executeUpdate(String query) throws SQLException {
+        try (var statement = connectionManager.createStatement()) {
+            return statement.executeUpdate(query);
+        }
     }
 
     private List<String> getColumnNames(ResultSetMetaData metaData) throws SQLException {
