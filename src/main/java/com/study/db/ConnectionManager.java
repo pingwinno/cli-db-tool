@@ -16,7 +16,7 @@ public class ConnectionManager {
     private final String url;
     private Connection connection = null;
 
-    public ConnectionManager(String userName, String password, String url) {
+    public ConnectionManager(String url, String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.url = url;
@@ -32,8 +32,8 @@ public class ConnectionManager {
     }
 
     @SneakyThrows
-    public Statement createStatement(){
-        if (connection ==null){
+    public Statement createStatement() {
+        if (connection == null) {
             createConnection();
         }
         return connection.createStatement();

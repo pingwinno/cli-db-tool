@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 
-import static com.study.db.TestData.EXPECTED_TABLE_ALL_COLUMNS;
 import static com.study.db.TestData.EXPECTED_TABLE_ID_COLUMN_ONLY;
 import static com.study.db.TestData.ID_LABEL;
 import static com.study.db.TestData.INSERT_QUERY;
@@ -20,6 +19,7 @@ import static com.study.db.TestData.MAIL_LABEL;
 import static com.study.db.TestData.NAME_LABEL;
 import static com.study.db.TestData.SELECT_QUERY_WITH_ASTERISK;
 import static com.study.db.TestData.SELECT_QUERY_WITH_ID;
+import static com.study.db.TestData.TABLE_WITH_ALL_FIELDS_AND_TWO_ROWS;
 import static com.study.db.TestData.UPDATE_QUERY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -45,8 +45,9 @@ class QueryProcessorTest {
         doNothing().when(STATEMENT).close();
         when(RESULT_SET.getMetaData()).thenReturn(RESULT_SET_META_DATA);
     }
+
     @AfterEach
-    void verifyNoMoreInteraction(){
+    void verifyNoMoreInteraction() {
         verifyNoMoreInteractions(STATEMENT);
     }
 
@@ -63,7 +64,7 @@ class QueryProcessorTest {
 
         var actualResult = queryProcessor.select(SELECT_QUERY_WITH_ASTERISK);
 
-        assertEquals(EXPECTED_TABLE_ALL_COLUMNS, actualResult);
+        assertEquals(TABLE_WITH_ALL_FIELDS_AND_TWO_ROWS, actualResult);
 
         verify(STATEMENT).executeQuery(SELECT_QUERY_WITH_ASTERISK);
         verify(RESULT_SET).getMetaData();
@@ -125,7 +126,7 @@ class QueryProcessorTest {
     }
 
     @Test
-    void update() throws SQLException {
+    void should_returnOne_when_updateRow() throws SQLException {
         when(STATEMENT.executeUpdate(UPDATE_QUERY)).thenReturn(1);
 
         var actualResult = queryProcessor.update(UPDATE_QUERY);
@@ -136,7 +137,7 @@ class QueryProcessorTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void should_returnOne_when_insertRow() throws SQLException {
         when(STATEMENT.executeUpdate(INSERT_QUERY)).thenReturn(1);
 
         var actualResult = queryProcessor.insert(INSERT_QUERY);
@@ -147,7 +148,7 @@ class QueryProcessorTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void should_returnOne_when_deleteRow() throws SQLException {
         when(STATEMENT.executeUpdate(INSERT_QUERY)).thenReturn(1);
 
         var actualResult = queryProcessor.delete(INSERT_QUERY);
