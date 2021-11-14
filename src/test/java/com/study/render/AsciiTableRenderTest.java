@@ -20,6 +20,13 @@ class AsciiTableRenderTest {
             │3                         │Mark                     │mark@mail.com            │
             └──────────────────────────┴─────────────────────────┴─────────────────────────┘""";
 
+    public static final String EXPECTED_TABLE_WITH_ONE_ROW = """
+            ┌──────────────────────────┬─────────────────────────┬─────────────────────────┐
+            │ID                        │NAME                     │MAIL                     │
+            ├──────────────────────────┼─────────────────────────┼─────────────────────────┤
+            │2                         │Jack                     │jack@mail.com            │
+            └──────────────────────────┴─────────────────────────┴─────────────────────────┘""";
+
     public static final String EXPECTED_TABLE_WITHOUT_ROWS = """
             ┌──────────────────────────┬─────────────────────────┬─────────────────────────┐
             │ID                        │NAME                     │MAIL                     │
@@ -31,6 +38,14 @@ class AsciiTableRenderTest {
         var tableRender = new AsciiTableRender(stream);
         tableRender.render(TestData.TABLE_WITH_ALL_FIELDS_AND_THREE_ROWS);
         Assertions.assertEquals(EXPECTED_TABLE_WITH_THREE_ROWS, stream.toString(StandardCharsets.UTF_8));
+    }
+
+    @Test
+    void should_renderTableWithOneRow_when_passQueryResultsWithOneRow() {
+        var stream = new ByteArrayOutputStream();
+        var tableRender = new AsciiTableRender(stream);
+        tableRender.render(TestData.TABLE_WITH_ALL_FIELDS_AND_ONE_ROW);
+        Assertions.assertEquals(EXPECTED_TABLE_WITH_ONE_ROW, stream.toString(StandardCharsets.UTF_8));
     }
 
     @Test
