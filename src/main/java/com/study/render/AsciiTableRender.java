@@ -26,7 +26,7 @@ public class AsciiTableRender implements TableRender {
         asciiTable.addRule();
         asciiTable.addRow(table.keySet());
         asciiTable.addRule();
-        var rowsNumber = table.values().stream().mapToInt(List::size).max().orElse(0);
+        int rowsNumber = table.values().stream().findFirst().map(List::size).orElse(0);
         for (int i = 0; i < rowsNumber; i++) {
             var row = new ArrayList<>();
             for (String columnName : table.keySet()) {

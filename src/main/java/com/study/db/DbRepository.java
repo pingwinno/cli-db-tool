@@ -7,10 +7,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QueryProcessor {
+public class DbRepository {
     private final ConnectionManager connectionManager;
 
-    public QueryProcessor(ConnectionManager connectionManager) {
+    public DbRepository(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
     }
 

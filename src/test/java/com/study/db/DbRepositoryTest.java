@@ -30,13 +30,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-class QueryProcessorTest {
+class DbRepositoryTest {
 
     private final ConnectionManager CONNECTION_MANAGER = mock(ConnectionManager.class);
     private final Statement STATEMENT = mock(Statement.class);
     private final ResultSet RESULT_SET = mock(ResultSet.class);
     private final ResultSetMetaData RESULT_SET_META_DATA = mock(ResultSetMetaData.class);
-    private final QueryProcessor queryProcessor = new QueryProcessor(CONNECTION_MANAGER);
+    private final DbRepository dbRepository = new DbRepository(CONNECTION_MANAGER);
 
     @BeforeEach
     void initMocks() throws SQLException {
@@ -62,7 +62,7 @@ class QueryProcessorTest {
         when(RESULT_SET.getString(NAME_LABEL)).thenReturn(JOHN_TEST_ENTITY.name(), JACK_TEST_ENTITY.name());
         when(RESULT_SET.getString(MAIL_LABEL)).thenReturn(JOHN_TEST_ENTITY.mail(), JACK_TEST_ENTITY.mail());
 
-        var actualResult = queryProcessor.select(SELECT_QUERY_WITH_ASTERISK);
+        var actualResult = dbRepository.select(SELECT_QUERY_WITH_ASTERISK);
 
         assertEquals(TABLE_WITH_ALL_FIELDS_AND_TWO_ROWS, actualResult);
 
@@ -87,7 +87,7 @@ class QueryProcessorTest {
         when(RESULT_SET.next()).thenReturn(true, true, false);
         when(RESULT_SET.getString(ID_LABEL)).thenReturn(JOHN_TEST_ENTITY.id(), JACK_TEST_ENTITY.id());
 
-        var actualResult = queryProcessor.select(SELECT_QUERY_WITH_ID);
+        var actualResult = dbRepository.select(SELECT_QUERY_WITH_ID);
 
         assertEquals(EXPECTED_TABLE_ID_COLUMN_ONLY, actualResult);
 
@@ -109,7 +109,7 @@ class QueryProcessorTest {
         when(RESULT_SET_META_DATA.getColumnCount()).thenReturn(3);
         when(RESULT_SET.next()).thenReturn(false);
 
-        var actualResult = queryProcessor.select(SELECT_QUERY_WITH_ID);
+        var actualResult = dbRepository.select(SELECT_QUERY_WITH_ID);
 
         assertEquals(Map.of(), actualResult);
 
@@ -129,7 +129,7 @@ class QueryProcessorTest {
     void should_returnOne_when_updateRow() throws SQLException {
         when(STATEMENT.executeUpdate(UPDATE_QUERY)).thenReturn(1);
 
-        var actualResult = queryProcessor.update(UPDATE_QUERY);
+        var actualResult = dbRepository.update(UPDATE_QUERY);
 
         assertEquals(1, actualResult);
         verify(STATEMENT).executeUpdate(UPDATE_QUERY);
@@ -140,7 +140,7 @@ class QueryProcessorTest {
     void should_returnOne_when_insertRow() throws SQLException {
         when(STATEMENT.executeUpdate(INSERT_QUERY)).thenReturn(1);
 
-        var actualResult = queryProcessor.insert(INSERT_QUERY);
+        var actualResult = dbRepository.insert(INSERT_QUERY);
 
         assertEquals(1, actualResult);
         verify(STATEMENT).executeUpdate(INSERT_QUERY);
@@ -151,7 +151,7 @@ class QueryProcessorTest {
     void should_returnOne_when_deleteRow() throws SQLException {
         when(STATEMENT.executeUpdate(INSERT_QUERY)).thenReturn(1);
 
-        var actualResult = queryProcessor.delete(INSERT_QUERY);
+        var actualResult = dbRepository.delete(INSERT_QUERY);
 
         assertEquals(1, actualResult);
         verify(STATEMENT).executeUpdate(INSERT_QUERY);

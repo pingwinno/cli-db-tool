@@ -1,6 +1,6 @@
 package com.study.service;
 
-import com.study.db.QueryProcessor;
+import com.study.db.DbRepository;
 import com.study.render.TableRender;
 import lombok.SneakyThrows;
 
@@ -9,31 +9,31 @@ import java.util.Arrays;
 public class QueryProcessinService {
 
     private final TableRender[] tableRenders;
-    private final QueryProcessor queryProcessor;
+    private final DbRepository dbRepository;
 
-    public QueryProcessinService(QueryProcessor queryProcessor, TableRender... tableRenders) {
+    public QueryProcessinService(DbRepository dbRepository, TableRender... tableRenders) {
         this.tableRenders = tableRenders;
-        this.queryProcessor = queryProcessor;
+        this.dbRepository = dbRepository;
     }
 
     @SneakyThrows
     public void select(String query) {
-        var tableResult = queryProcessor.select(query);
+        var tableResult = dbRepository.select(query);
         Arrays.stream(tableRenders).forEach(tableRender -> tableRender.render(tableResult));
     }
 
     @SneakyThrows
     public int update(String query) {
-        return queryProcessor.update(query);
+        return dbRepository.update(query);
     }
 
     @SneakyThrows
     public int insert(String query) {
-        return queryProcessor.insert(query);
+        return dbRepository.insert(query);
     }
 
     @SneakyThrows
     public int delete(String query) {
-        return queryProcessor.delete(query);
+        return dbRepository.delete(query);
     }
 }

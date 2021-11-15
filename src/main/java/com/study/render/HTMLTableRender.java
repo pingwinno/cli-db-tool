@@ -27,7 +27,7 @@ public class HTMLTableRender implements TableRender {
         var stringBuilder = new StringBuilder();
         stringBuilder.append(HEADER);
         stringBuilder.append(String.format(TABLE_ROW_TEMPLATE, table.keySet().toArray()));
-        var rowsNumber = table.values().stream().mapToInt(List::size).max().orElse(0);
+        int rowsNumber = table.values().stream().findFirst().map(List::size).orElse(0);
         for (int i = 0; i < rowsNumber; i++) {
             var row = new ArrayList<>();
             for (String columnName : table.keySet()) {
