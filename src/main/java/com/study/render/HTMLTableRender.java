@@ -1,17 +1,20 @@
 package com.study.render;
 
+import com.study.model.QueryResult;
 import lombok.SneakyThrows;
 
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 import static com.study.render.HTMLTemplates.BOTTOM;
 import static com.study.render.HTMLTemplates.HEADER;
 import static com.study.render.HTMLTemplates.TABLE_DATA_TEMPLATE;
-import static com.study.render.HTMLTemplates.TABLE_ROW_TEMPLATE;
+import static com.study.render.HTMLTemplates.TABLE_HEADER_TEMPLATE;
+import static com.study.render.HTMLTemplates.TABLE_ROW_END;
+import static com.study.render.HTMLTemplates.TABLE_ROW_START;
+
 
 public class HTMLTableRender implements TableRender {
     private final OutputStream outputStream;
@@ -22,21 +25,31 @@ public class HTMLTableRender implements TableRender {
 
     @SneakyThrows
     @Override
-    public void render(Map<String, List<String>> table) {
+    public void render(QueryResult table) {
 
-        var stringBuilder = new StringBuilder();
-        stringBuilder.append(HEADER);
-        stringBuilder.append(String.format(TABLE_ROW_TEMPLATE, table.keySet().toArray()));
-        int rowsNumber = table.values().stream().findFirst().map(List::size).orElse(0);
-        for (int i = 0; i < rowsNumber; i++) {
-            var row = new ArrayList<>();
-            for (String columnName : table.keySet()) {
-                row.add(table.get(columnName).get(i));
-            }
-            stringBuilder.append(String.format(TABLE_DATA_TEMPLATE, row.toArray()));
+        var tableBuilder = new StringBuilder();
+        tableBuilder.append(HEADER);
+        tableBuilder.append(TABLE_ROW_START);
+        var columnsHeadBuilder = new StringBuilder();
+        for (String columnName : table.getColumnNames()) {
+            columnsHeadBuilder.append(String.format(TABLE_HEADER_TEMPLATE, columnName));
         }
+        tableBuilder.append(columnsHeadBuilder);
+        tableBuilder.append(TABLE_ROW_END);
 
-        stringBuilder.append(BOTTOM);
-        outputStream.write(stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
+        if (Objects.nonNull(table.getRows()) && !table.getRows().isEmpty()) {
+            for (List<String> row : table.getRows()) {
+                tableBuilder.append(TABLE_ROW_START);
+                var rowBuilder = new StringBuilder();
+                for (String field : row) {
+                    rowBuilder.append(String.format(TABLE_DATA_TEMPLATE, field));
+                }
+                tableBuilder.append(rowBuilder);
+                tableBuilder.append(TABLE_ROW_END);
+            }
+        }
+        tableBuilder.append(BOTTOM);
+        outputStream.write(tableBuilder.toString()
+                                       .getBytes(StandardCharsets.UTF_8));
     }
 }

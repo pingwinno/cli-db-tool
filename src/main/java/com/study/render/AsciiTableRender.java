@@ -1,14 +1,14 @@
 package com.study.render;
 
+import com.study.model.QueryResult;
 import de.vandermeer.asciitable.AsciiTable;
 import lombok.SneakyThrows;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 public class AsciiTableRender implements TableRender {
     private final OutputStream outputStream;
@@ -20,21 +20,20 @@ public class AsciiTableRender implements TableRender {
 
     @SneakyThrows
     @Override
-    public void render(Map<String, List<String>> table) {
+    public void render(QueryResult table) {
         AsciiTable asciiTable = new AsciiTable();
 
         asciiTable.addRule();
-        asciiTable.addRow(table.keySet());
+        asciiTable.addRow(table.getColumnNames());
         asciiTable.addRule();
-        int rowsNumber = table.values().stream().findFirst().map(List::size).orElse(0);
-        for (int i = 0; i < rowsNumber; i++) {
-            var row = new ArrayList<>();
-            for (String columnName : table.keySet()) {
-                row.add(table.get(columnName).get(i));
+        if (Objects.nonNull(table.getRows()) && !table.getRows()
+                                                      .isEmpty()) {
+            for (List<String> row : table.getRows()) {
+                asciiTable.addRow(row);
+                asciiTable.addRule();
             }
-            asciiTable.addRow(row);
-            asciiTable.addRule();
         }
-        outputStream.write(asciiTable.render().getBytes(StandardCharsets.UTF_8));
+        outputStream.write(asciiTable.render()
+                                     .getBytes(StandardCharsets.UTF_8));
     }
 }

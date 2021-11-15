@@ -1,8 +1,7 @@
 package com.study.render;
 
-import java.util.List;
-import java.util.Map;
+import com.study.model.QueryResult;
 
 public interface TableRender {
-    void render(Map<String, List<String>> table);
+    void render(QueryResult table);
 }

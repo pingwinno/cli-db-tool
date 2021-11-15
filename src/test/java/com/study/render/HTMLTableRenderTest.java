@@ -22,24 +22,24 @@ class HTMLTableRenderTest {
 
             <table style="width:100%">
                 <tr>
-                  <th>ID</th>
-                  <th>NAME</th>
-                 <th>MAIL</th>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>MAIL</th>
                 </tr>
                 <tr>
-                   <td>1</td>
-                   <td>John</td>
-                   <td>john@mail.com</td>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>john@mail.com</td>
                 </tr>
                 <tr>
-                   <td>2</td>
-                   <td>Jack</td>
-                   <td>jack@mail.com</td>
+                    <td>2</td>
+                    <td>Jack</td>
+                    <td>jack@mail.com</td>
                 </tr>
                 <tr>
-                   <td>3</td>
-                   <td>Mark</td>
-                   <td>mark@mail.com</td>
+                    <td>3</td>
+                    <td>Mark</td>
+                    <td>mark@mail.com</td>
                 </tr>
             </table>
 
@@ -59,14 +59,14 @@ class HTMLTableRenderTest {
 
             <table style="width:100%">
                 <tr>
-                  <th>ID</th>
-                  <th>NAME</th>
-                 <th>MAIL</th>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>MAIL</th>
                 </tr>
                 <tr>
-                   <td>2</td>
-                   <td>Jack</td>
-                   <td>jack@mail.com</td>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>john@mail.com</td>
                 </tr>
             </table>
 
@@ -86,9 +86,9 @@ class HTMLTableRenderTest {
 
             <table style="width:100%">
                 <tr>
-                  <th>ID</th>
-                  <th>NAME</th>
-                 <th>MAIL</th>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>MAIL</th>
                 </tr>
             </table>
 

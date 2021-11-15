@@ -16,25 +16,29 @@ public class HTMLTemplates {
             <table style="width:100%">
             """;
 
-    public static final String TABLE_ROW_TEMPLATE = """
+    public static final String TABLE_ROW_START =
+            """
                 <tr>
-                  <th>%s</th>
-                  <th>%s</th>
-                 <th>%s</th>
+            """;
+    public static final String TABLE_ROW_END =
+            """
                 </tr>
             """;
+    public static final String TABLE_DATA_TEMPLATE =
+            """    
+                            <td>%s</td>
+                    """;
 
-    public static final String TABLE_DATA_TEMPLATE = """
-                <tr>
-                   <td>%s</td>
-                   <td>%s</td>
-                   <td>%s</td>
-                </tr>
-            """;
+    public static final String TABLE_HEADER_TEMPLATE =
+            """                    
+                            <th>%s</th>
+                    """;
 
     public static final String BOTTOM = """
             </table>
                         
             </body>
             </html>""";
+
+    public static final String LINE_SEPARATOR = "\n\r";
 }
