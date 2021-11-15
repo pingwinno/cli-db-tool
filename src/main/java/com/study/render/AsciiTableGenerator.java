@@ -1,21 +1,18 @@
 package com.study.render;
 
+import com.study.factory.Render;
 import com.study.model.QueryResult;
 import de.vandermeer.asciitable.AsciiTable;
 import lombok.SneakyThrows;
-import org.fusesource.jansi.AnsiConsole;
 
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 
-public class AsciiTableRender implements TableRender {
-    private final OutputStream outputStream;
+public class AsciiTableGenerator extends TableGenerator {
 
-    public AsciiTableRender(OutputStream outputStream) {
-        this.outputStream = outputStream;
-        AnsiConsole.systemInstall();
+    public AsciiTableGenerator(Render render) {
+        super(render);
     }
 
     @SneakyThrows
@@ -33,7 +30,7 @@ public class AsciiTableRender implements TableRender {
                 asciiTable.addRule();
             }
         }
-        outputStream.write(asciiTable.render()
+        getRender().render(asciiTable.render()
                                      .getBytes(StandardCharsets.UTF_8));
     }
 }

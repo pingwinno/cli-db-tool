@@ -2,8 +2,8 @@ package com.study.service;
 
 import com.study.db.QueryProcessor;
 import com.study.model.QueryResult;
-import com.study.render.AsciiTableRender;
-import com.study.render.HTMLTableRender;
+import com.study.render.AsciiTableGenerator;
+import com.study.render.HTMLTableGenerator;
 import org.junit.jupiter.api.Test;
 
 import static com.study.db.TestData.DELETE_QUERY;
@@ -19,8 +19,8 @@ import static org.mockito.Mockito.when;
 public class QueryProcessingServiceTest {
 
     private static final int EXPECTED_NUMBER_OF_CHANGES = 1;
-    private final HTMLTableRender htmlRender = mock(HTMLTableRender.class);
-    private final AsciiTableRender asciiRender = mock(AsciiTableRender.class);
+    private final HTMLTableGenerator htmlRender = mock(HTMLTableGenerator.class);
+    private final AsciiTableGenerator asciiRender = mock(AsciiTableGenerator.class);
     private final QueryProcessor queryProcessor = mock(QueryProcessor.class);
     private final QueryProcessingService queryProcessingService = new QueryProcessingService(queryProcessor, htmlRender,
             asciiRender);
