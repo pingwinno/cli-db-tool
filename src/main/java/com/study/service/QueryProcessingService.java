@@ -27,7 +27,7 @@ public class QueryProcessingService {
             Arrays.stream(tableGenerators)
                   .forEach(tableGenerator -> tableGenerator.render(tableResult));
         } else {
-            queryProcessor.executeUpdate(query);
+            printNumberOfAffectedRows(queryType, queryProcessor.executeUpdate(query));
         }
     }
 

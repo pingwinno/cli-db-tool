@@ -7,5 +7,6 @@ public class ConsoleRender implements Render {
     @Override
     public void render(byte[] data) {
         System.out.write(data);
+
     }
 }
